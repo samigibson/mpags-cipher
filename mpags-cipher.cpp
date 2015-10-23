@@ -1,11 +1,15 @@
 #include <iostream>
+#include <string>
 
 int main()
 
 {
-  // This is a comment
-  /* This is a 
-     Multiline comment */
+  char in_char{'x'};
 
-  std::cout << "Hello World!\n";
+  while(std::cin >> in_char)
+    {
+      switch (in_char)
+	{
+	  case 
+    }
 }
