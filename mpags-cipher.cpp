@@ -16,4 +16,6 @@ int main(int argc, char* argv[])
       std::string argument = argv[i];
       std::cout << argv[i] << std::endl;
     }
+  
+  return 0;
 }
