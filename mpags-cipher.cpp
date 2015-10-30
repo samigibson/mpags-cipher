@@ -8,14 +8,18 @@ int main(int argc, char* argv[])
 
   while(std::cin >> in_char)
     {
-      //switch (in_char) 
-    }
-
-  for (int i(0); i < argc; ++i)
-    {
-      std::string argument = argv[i];
-      std::cout << argv[i] << std::endl;
+       
     }
   
   return 0;
+}
+
+std::string transformChar(char input)
+{
+  if(isaplha(input)==0)
+    {
+      switch(input)
+	{
+	case 0:
+	  
 }
