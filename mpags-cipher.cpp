@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <string>
 
@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     {
        
     }
-  
+*/ 
 
 // Standard Library includes
 #include <iostream>
@@ -171,7 +171,7 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
+/*
 std::string transformChar(char input)
 {
   if(isaplha(input)==0)
@@ -181,3 +181,4 @@ std::string transformChar(char input)
 	case 0:
 	  
 }
+*/
