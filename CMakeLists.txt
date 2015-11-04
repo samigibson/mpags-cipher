@@ -14,8 +14,20 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # - Don't allow C++ Compiler Vendor Extentions
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# - Use our standard set of flags if the GNU/Clang compliers are used
+if(SMAKE_CXX_COMPLIER_ID MATCHES "GNU|Clang|AppleClang")
+  set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -Wfatal-errors -Wshadow -pedantic")
+endif()
+
 # - Declare the build of mpags-cipher main program
-add_executable(mpags-cipher mpags-cipher.cpp)
+add_executable(mpags-cipher 
+  mpags-cipher.cpp
+  TransformChar.hpp
+  TransformChar.cpp
+  )
+target_include_directories(mpags-cipher
+  PRIVATE mpags-cipher.git
+  )
 target_compile_features(mpags-cipher
   PRIVATE cxx_auto_type cxx_range_for cxx_uniform_initialization
   )
