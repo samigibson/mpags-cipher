@@ -4,10 +4,6 @@
 //Include header for functions: TRANSFORMCHAR
 #include "TransformChar.hpp"
 
-// Declare functions: TRANSFORMCHAR converts input into string with
-// only uppercase letters
-//std::string transformChar(char input);
-
 //Begin MAIN
 int main(int argc, char* argv[])
 {
