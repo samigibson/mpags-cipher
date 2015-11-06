@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-int processCommandLine(int argc, char* argv[]) 
+bool processCommandLine(int argc, char argv[], CommandLineInfo Info) 
 {
   // Command line inputs
   bool helpRequested {false};
