@@ -1,16 +1,17 @@
-// Taken (pretty much) verbatim from solution
+// (Taken from solution but now edited)
 
 #include <iostream>
+#include <fstream> //files
 #include <string>
 
-bool processCommandLine(int argc, char argv[], CommandLineInfo Info) 
-{
-  // Command line inputs
-  bool helpRequested {false};
-  bool versionRequested {false};
-  std::string inputFile {""};
-  std::string outputFile {""};
+//Include header for PROCESSCOMMANDLINE
+#include "ProcessCommandLine.hpp"
 
+//PROCESSCOMMANDLINE function: looks at command line arguments, 
+//can output help or version info if requested, 
+//and deal with input and output files if specified. 
+bool processCommandLine(int argc, char* argv[], CommandLineInfo& info) 
+{
   // Process command line arguments - ignore zeroth element of argv
   // as we know this to be the program name and don't need to worry
   // about it
@@ -20,43 +21,47 @@ bool processCommandLine(int argc, char argv[], CommandLineInfo Info)
 
       if (argvString == "-h" || argvString == "--help") 
 	{
-	  helpRequested = true;
+	  info.helpRequested = true;
 	}
       else if (argvString == "--version") 
 	{
-	  versionRequested = true;
+	  info.versionRequested = true;
 	}
       else if (argvString == "-i") 
 	{
+	  info.ifileRequested = true;
+	  
 	  // Handle input file option
 	  // Next element is filename unless -i is the last argument
 	  if (i == argc-1) 
 	    {
 	      std::cout << "-i requires a filename argument" << std::endl;
-	      // exit main with non-zero return to indicate failure
+	      // exit PROCESSCOMMANDLINE with non-zero return to indicate failure
 	      return 1;
 	    }
 	  else 
 	    {
 	      // Got filename, so assign value and advance past it.
-	      inputFile = argv[i+1];
+	      info.inputFile = argv[i+1];
 	      i += 1;
 	    }
 	}
       else if (argvString == "-o") 
 	{
+	  info.ofileRequested = true;
+	  
 	  // Handle output file option
 	  // Next element is filename unless -i is the last argument
 	  if (i == argc-1) 
 	    {
 	      std::cout << "-o requires a filename argument" << std::endl;
-	      // exit main with non-zero return to indicate failure
+	      // exit PROCESSCOMMANDLINE with non-zero return to indicate failure
 	      return 1;
 	    }
 	  else 
 	    {
 	      // Got filename, so assign value and advance past it.
-	      outputFile = argv[i+1];
+	      info.outputFile = argv[i+1];
 	      i += 1;
 	    }
 	}
@@ -64,13 +69,13 @@ bool processCommandLine(int argc, char argv[], CommandLineInfo Info)
 	{
 	  // Have an unknown flag to output error message and return non-zero
 	  // exit status to indicate failure
-	  std::cout << "[error] unknown argument '" << argvString << "'\n";
+	  std::cout << "[error] unknown argument: " << argvString << std::endl;
 	  return 1;
 	}
     }
 
   // Handle help, if requested
-  if (helpRequested) 
+  if (info.helpRequested) 
     {
       // Line splitting for readability
       std::cout
@@ -83,43 +88,44 @@ bool processCommandLine(int argc, char argv[], CommandLineInfo Info)
         << "                   Stdin will be used if not supplied\n\n"
         << "  -o FILE          Write processed text to FILE\n"
         << "                   Stdout will be used if not supplied\n\n";
-      // Help requires no further action, so return from main
+      // Help requires no further action, so return from PROCESSCOMANDLINE
       // with 0 used to indicate success
       return 0;
     }
 
   // Handle version, if requested. Like help, requires no further action,
   // so return from main with zero to indicate success
-  if (versionRequested) 
+  if (info.versionRequested) 
     {
       std::cout << "0.1.0" << std::endl;
       return 0;
     }
 
-  // Read in user input from stdin/file
+  /*// Read in user input from stdin/file
   // Warn that input file option not yet implemented
-  if (!inputFile.empty()) 
+  if (info.ifileRequested) 
     {
       std::cout << "[warning] input from file ('"
-		<< inputFile
+		<< info.inputFile
 		<< "') not implemented yet, using stdin\n";
     }
 
-  // INPUT FROM TERMINAL WAS HERE
-
-  // Output the input text
-  // Warn that output file option not yet implemented
-  if (!outputFile.empty()) 
+  // If requested, open and then check output file
+  if (info.ofileRequested) 
     {
-      std::cout << "[warning] output to file ('"
-		<< outputFile
-		<< "') not implemented yet, using stdout\n";
-    }
+      std::ofstream out_file{info.outputFile};
 
-  std::cout << inputText << "\n";
+      bool out_ok = out_file.good();
 
-  // No requirement to return from main, but we do so for clarity and
-  // consistency with other functions.
+      if(!out_ok)
+	{
+	  //If output file not opened correctly, print error and end
+	  std::cout << "[error] problem with output file: "
+	            << info.outputFile << std::endl;
+	  return 1;
+	}
+    }*/
 
+  // Return zero to indicate PROCESSCOMMANDLINE finished successfully
   return 0;
 }

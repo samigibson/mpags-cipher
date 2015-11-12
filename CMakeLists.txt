@@ -24,6 +24,10 @@ add_executable(mpags-cipher
   mpags-cipher.cpp
   TransformChar.hpp
   TransformChar.cpp
+  ProcessCommandLine.hpp
+  ProcessCommandLine.cpp
+  CaesarCipher.hpp
+  CaesarCipher.cpp
   )
 target_include_directories(mpags-cipher
   PRIVATE mpags-cipher.git
