@@ -18,16 +18,19 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
   for (int i {1}; i < argc; ++i) 
     {
       std::string argvString(argv[i]);
+      std::string argvString1(argv[i+1]);
 
-      if (argvString == "-h" || argvString == "--help") 
-	{
+      if(argvString == "-h" || "--help")
+        {
 	  info.helpRequested = true;
 	}
-      else if (argvString == "--version") 
+
+      else if(argvString == "--version")
 	{
 	  info.versionRequested = true;
 	}
-      else if (argvString == "-i") 
+
+      else if(argvString == "-i")
 	{
 	  info.ifileRequested = true;
 	  
@@ -46,7 +49,8 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
 	      i += 1;
 	    }
 	}
-      else if (argvString == "-o") 
+      
+      else if(argvString == "-o")
 	{
 	  info.ofileRequested = true;
 	  
@@ -65,7 +69,35 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
 	      i += 1;
 	    }
 	}
-      else 
+      
+      else if(argvString == "--cipher")
+	{
+	  //Get information on which cipher to use
+	  if (argvString1 == "caesar")
+	    {
+	      info.cipher = argv[i+1];
+	      i += 1;
+	    }
+	  else if (argvString1 == "playfair")
+	    {
+	      info.cipher == argv[i+1];
+	      i += 1;
+	    }
+	  else
+	    {
+	      //End program if given cipher doesn't match one in program
+	      std::cout << "--cipher must be one of: caesar, playfair" << std::endl;
+	      return 1;
+	    }
+	}
+
+      else if(argvString == "--key")
+	{
+	  info.key = argv[i+1];
+	  i += 1;
+	}
+
+      else
 	{
 	  // Have an unknown flag to output error message and return non-zero
 	  // exit status to indicate failure

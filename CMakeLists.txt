@@ -19,19 +19,18 @@ if(SMAKE_CXX_COMPLIER_ID MATCHES "GNU|Clang|AppleClang")
   set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -Wfatal-errors -Wshadow -pedantic")
 endif()
 
-# - Declare the build of mpags-cipher main program
+# - Add the MPAGSCipher subdirectory to the build
+add_subdirectory(MPAGSCipher)
+
+# - Enable testing and add the Testing subdirectory to the build
+enable_testing()
+add_subdirectory(Testing)
+
+# - Declare the build of mpags-cipher main program and link
+# it to the MPAGSCiphelibrary
 add_executable(mpags-cipher 
   mpags-cipher.cpp
-  TransformChar.hpp
-  TransformChar.cpp
-  ProcessCommandLine.hpp
-  ProcessCommandLine.cpp
-  CaesarCipher.hpp
-  CaesarCipher.cpp
   )
-target_include_directories(mpags-cipher
-  PRIVATE mpags-cipher.git
-  )
-target_compile_features(mpags-cipher
-  PRIVATE cxx_auto_type cxx_range_for cxx_uniform_initialization
+target_link_libraries(mpags-cipher
+  PRIVATE MPAGSCipher
   )

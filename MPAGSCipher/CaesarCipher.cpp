@@ -6,7 +6,7 @@
 #include "CaesarCipher.hpp"
 #include "ProcessCommandLine.hpp"
 
-void cipher(std::string plaintext)
+void caesarCipher(std::string plaintext)
 {
   std::string ciphertext{"HAI"};
   std::vector<char> alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};

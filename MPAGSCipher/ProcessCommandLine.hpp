@@ -12,7 +12,8 @@ struct CommandLineInfo
   bool ofileRequested;
   std::string inputFile;
   std::string outputFile;
-  int key;
+  std::string cipher;
+  std::string key;
   bool encrypt;
 };
 

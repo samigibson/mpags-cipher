@@ -10,7 +10,7 @@
 //Begin MAIN
 int main(int argc, char* argv[])
 {
-  CommandLineInfo info{false, false, false, false, "", "", 0, true};
+  CommandLineInfo info{false, false, false, false, "", "", "", "", true};
   
   //Introduce boolian to end program if error found in command line arguments
   //(sf = success/failure)
@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
       break;
     }
     
-  cipher(plaintext);
+  caesarCipher(plaintext);
 
   switch(info.ofileRequested)
     {
