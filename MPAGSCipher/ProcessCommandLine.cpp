@@ -18,14 +18,13 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
   for (int i {1}; i < argc; ++i) 
     {
       std::string argvString(argv[i]);
-      std::string argvString1(argv[i+1]);
 
-      if(argvString == "-h" || "--help")
+      /*if(argvString == "-h" || "--help")
         {
 	  info.helpRequested = true;
-	}
+	}*/
 
-      else if(argvString == "--version")
+      if(argvString == "--version")
 	{
 	  info.versionRequested = true;
 	}
@@ -72,23 +71,10 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
       
       else if(argvString == "--cipher")
 	{
-	  //Get information on which cipher to use
-	  if (argvString1 == "caesar")
-	    {
-	      info.cipher = argv[i+1];
-	      i += 1;
-	    }
-	  else if (argvString1 == "playfair")
-	    {
-	      info.cipher == argv[i+1];
-	      i += 1;
-	    }
-	  else
-	    {
-	      //End program if given cipher doesn't match one in program
-	      std::cout << "--cipher must be one of: caesar, playfair" << std::endl;
-	      return 1;
-	    }
+	  info.cipher = argv[i+1];
+	  i += 1;
+	  
+	  //Figure out way to end if cipher is not one of caesar, etc.
 	}
 
       else if(argvString == "--key")
@@ -109,7 +95,7 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
   // Handle help, if requested
   if (info.helpRequested) 
     {
-      // Line splitting for readability
+      /*// Line splitting for readability
       std::cout
         << "Usage: mpags-cipher [-i <file>] [-o <file>]\n\n"
         << "Encrypts/Decrypts input alphanumeric text using classical ciphers\n\n"
@@ -120,44 +106,18 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
         << "                   Stdin will be used if not supplied\n\n"
         << "  -o FILE          Write processed text to FILE\n"
         << "                   Stdout will be used if not supplied\n\n";
-      // Help requires no further action, so return from PROCESSCOMANDLINE
-      // with 0 used to indicate success
+	// Print help, then return 1 to end program*/
+      
       return 0;
     }
 
-  // Handle version, if requested. Like help, requires no further action,
-  // so return from main with zero to indicate success
+  // Handle version, if requested. Return 1 to end program
   if (info.versionRequested) 
     {
       std::cout << "0.1.0" << std::endl;
-      return 0;
+      return 1;
     }
 
-  /*// Read in user input from stdin/file
-  // Warn that input file option not yet implemented
-  if (info.ifileRequested) 
-    {
-      std::cout << "[warning] input from file ('"
-		<< info.inputFile
-		<< "') not implemented yet, using stdin\n";
-    }
-
-  // If requested, open and then check output file
-  if (info.ofileRequested) 
-    {
-      std::ofstream out_file{info.outputFile};
-
-      bool out_ok = out_file.good();
-
-      if(!out_ok)
-	{
-	  //If output file not opened correctly, print error and end
-	  std::cout << "[error] problem with output file: "
-	            << info.outputFile << std::endl;
-	  return 1;
-	}
-    }*/
-
-  // Return zero to indicate PROCESSCOMMANDLINE finished successfully
+  // Return zero to indicate PROCESSCOMMANDLINE finished (and no help requested) 
   return 0;
 }

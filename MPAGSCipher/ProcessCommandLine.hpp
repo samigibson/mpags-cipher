@@ -14,7 +14,6 @@ struct CommandLineInfo
   std::string outputFile;
   std::string cipher;
   std::string key;
-  bool encrypt;
 };
 
 //PROCESSCOMMANDLINE function: looks at command line arguments, 

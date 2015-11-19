@@ -1,4 +1,12 @@
 //Header for CAESARCIPHER
 #include <string>
 
-void caesarCipher(std::string plaintext);
+class CaesarCipher
+{
+public:
+  CaesarCipher(const std::string& cipherKey);
+
+  int key_;
+
+  std::string cipher(std::string plaintext);
+};

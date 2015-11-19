@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-//Include header for functions: TRANSFORMCHAR, PROCESSCOMMANDLINE
+//Include header for: TRANSFORMCHAR, PROCESSCOMMANDLINE, CAESARCIPHER
 #include "TransformChar.hpp"
 #include "ProcessCommandLine.hpp"
 #include "CaesarCipher.hpp"
@@ -10,7 +10,7 @@
 //Begin MAIN
 int main(int argc, char* argv[])
 {
-  CommandLineInfo info{false, false, false, false, "", "", "", "", true};
+  CommandLineInfo info{false, false, false, false, "", "", "", ""};
   
   //Introduce boolian to end program if error found in command line arguments
   //(sf = success/failure)
@@ -19,6 +19,8 @@ int main(int argc, char* argv[])
   //Use PROCESSCOMMANDLINE to check for i/o, help, version requests
   sf = processCommandLine(argc, argv, info);
   
+  
+
   //Initialise plaintext and ciphertext string, used for file/screen input/output
   char inchar{'x'};
   std::string plaintext{""};
@@ -76,7 +78,12 @@ int main(int argc, char* argv[])
       break;
     }
     
-  caesarCipher(plaintext);
+  if(info.cipher=="caesar")
+    {
+      CaesarCipher message{info.key};
+
+      ciphertext = message.cipher(plaintext);
+      }
 
   switch(info.ofileRequested)
     {
@@ -89,7 +96,7 @@ int main(int argc, char* argv[])
       if(out_ok)
 	{
 	  //If output file ok, write plaintext into it
-	  outfile << plaintext;
+	  outfile << ciphertext;
 
 	  //Close output file once finished
 	  outfile.close();
@@ -107,7 +114,7 @@ int main(int argc, char* argv[])
     case false:
       {
       //No output file specified, so print plaintext to screen
-      std::cout << plaintext << std::endl;
+      std::cout << ciphertext << std::endl;
       }
       break;
     }
