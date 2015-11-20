@@ -19,8 +19,6 @@ int main(int argc, char* argv[])
   //Use PROCESSCOMMANDLINE to check for i/o, help, version requests
   sf = processCommandLine(argc, argv, info);
   
-  
-
   //Initialise plaintext and ciphertext string, used for file/screen input/output
   char inchar{'x'};
   std::string plaintext{""};
@@ -82,8 +80,8 @@ int main(int argc, char* argv[])
     {
       CaesarCipher message{info.key};
 
-      ciphertext = message.cipher(plaintext);
-      }
+      ciphertext = message.applyCipher(plaintext);
+    }
 
   switch(info.ofileRequested)
     {

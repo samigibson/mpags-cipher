@@ -19,10 +19,10 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
     {
       std::string argvString(argv[i]);
 
-      /*if(argvString == "-h" || "--help")
+      if(argvString == "-h" || argvString == "--help")
         {
 	  info.helpRequested = true;
-	}*/
+	}
 
       if(argvString == "--version")
 	{
@@ -83,6 +83,16 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
 	  i += 1;
 	}
 
+      else if(argvString == "-encrypt")
+	{
+	  CipherMode mode{CipherMode::encrypt};
+	}
+
+      else if(argvString == "-decrypt")
+	{
+	  CipherMode mode{CipherMode::decrypt};
+	}
+
       else
 	{
 	  // Have an unknown flag to output error message and return non-zero
@@ -95,7 +105,7 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
   // Handle help, if requested
   if (info.helpRequested) 
     {
-      /*// Line splitting for readability
+      // Line splitting for readability
       std::cout
         << "Usage: mpags-cipher [-i <file>] [-o <file>]\n\n"
         << "Encrypts/Decrypts input alphanumeric text using classical ciphers\n\n"
@@ -105,10 +115,13 @@ bool processCommandLine(int argc, char* argv[], CommandLineInfo& info)
         << "  -i FILE          Read text to be processed from FILE\n"
         << "                   Stdin will be used if not supplied\n\n"
         << "  -o FILE          Write processed text to FILE\n"
-        << "                   Stdout will be used if not supplied\n\n";
-	// Print help, then return 1 to end program*/
-      
-      return 0;
+        << "                   Stdout will be used if not supplied\n\n"
+	<< "  --cipher CIPHER  Specify one CIPHER from the following:"
+	<< "                   caesar, "
+	<< "  --key KEY        Specify the relevant KEY for encryption";
+
+      // Print help, then return 1 to end program
+      return 1;
     }
 
   // Handle version, if requested. Return 1 to end program

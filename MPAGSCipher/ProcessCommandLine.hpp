@@ -3,7 +3,7 @@
 
 //Create structure CommandLineInfo to hold information related to the 
 //command line arguments 
-//(help, version, input file, output file, encrypt/decrypt, key)
+//(help, version, input file, output file, cipher, key)
 struct CommandLineInfo
 {
   bool helpRequested;
@@ -15,6 +15,12 @@ struct CommandLineInfo
   std::string cipher;
   std::string key;
 };
+
+enum class CipherMode
+{encrypt, decrypt};
+
+enum class CipherType
+{ceasar}
 
 //PROCESSCOMMANDLINE function: looks at command line arguments, 
 //can output help or version info if requested, 
